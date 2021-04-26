@@ -1,4 +1,28 @@
-
+function dodajEl(alb, images)
+{
+    let div = $("<div>");
+    if(images)
+    {
+        div.append($('<img/>').attr(
+            {src: images.images[0].thumbnails['small']}
+        ));
+    }
+    else
+    {
+        div.append("<br>");
+    }
+    console.log("TEST");
+    div.append($('<input>').attr(
+        {   type: 'button',
+            value: alb.title + ", " + alb['artist-credit'][0].name + ", " + alb['track-count'] + " tracks"
+        }).click(function(){
+            window.location.href = "sorter.html?id=" + alb.id;
+        })
+        );
+    // let potSlike = `<div><img src=${images.images[0].thumbnails['small']}></div>`;
+    // console.log(potSlike);
+    $("#slike").append(div);
+}
 
 $("#confirm").click(() => {
     
@@ -13,26 +37,9 @@ $("#confirm").click(() => {
     $.get(urlLink, (data) => {
         for(let alb of data.releases)
         {
-            console.log(alb);
             $.get("https://coverartarchive.org/release/" + alb.id, (images, err) => {
-                if(images.status!=404)
-                {
-                    let div = $("<div>");
-                    div.append($('<img/>').attr(
-                        {src: images.images[0].thumbnails['small']}
-                    ));
-                    div.append($('<input>').attr(
-                        {   type: 'button',
-                            value: alb.title + ", " + alb['artist-credit'][0].name + ", " + alb['track-count'] + " tracks"
-                        }).click(function(){
-                            window.location.href = "sorter.html?id=" + alb.id;
-                        })
-                        );
-                    // let potSlike = `<div><img src=${images.images[0].thumbnails['small']}></div>`;
-                    // console.log(potSlike);
-                    $("#slike").append(div);
-                }
-            });
+                dodajEl(alb, images);
+            }).fail(function(){dodajEl(alb, false)});
         }
     })
 })
