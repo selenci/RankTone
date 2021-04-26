@@ -19,6 +19,13 @@
         button{
             height: 150px;
         }
+        .container-fluid{
+            width:80%;
+        }
+
+        #pesmi{
+            font-size: 20px;
+        }
     </style>
 </head>
 
@@ -26,11 +33,11 @@
     <div class="container-fluid">
         
         <div class="row mt-4 justify-content-center" id="title">
-            <h1>Choose Your Favorite</h1>
+            <h1 class="col-10 col-md-12">Choose Your Favorite</h1>
         </div>
         <div class="row mt-4 justify-content-center" id="contents">
-            <button class="btn btn-success btn-lg col-12 col-md-2 mb-4" id="levi" onclick='val = -1'></button>
-            <button class="btn btn-success btn-lg col-12 col-md-2 offset-md-1" id="desni" onclick='val = 1'></button>
+            <button class="btn btn-primary btn-lg col-12 col-md-2 mb-4" id="levi" onclick='val = -1'></button>
+            <button class="btn btn-primary btn-lg col-12 col-md-2 offset-md-1" id="desni" onclick='val = 1'></button>
             <div id="pesmi"></div>
             <script src="sort.js"></script>
         </div>

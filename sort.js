@@ -80,7 +80,7 @@ function izpis(){
     let i = 1;
     for(let song of pesmi)
     {
-        $("#pesmi").append(`${i}. ${song}<br>`);
+        $("#pesmi").append(`<b>${i}.</b> ${song}<br>`);
         ++i;
     }
     $("#pesmi").append(`Number of comparisons: ${cnt}`);

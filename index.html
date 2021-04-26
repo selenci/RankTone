@@ -15,16 +15,19 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <title>Document</title>
+    <style>
+        .container-fluid{
+            width:80%;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row mt-4 justify-content-center">
-            <form>
-                <input type="text" id="artist" placeholder="Insert Artist">
-                <input type="text" id="album" placeholder="Insert Album">
-                <input type="button" id="confirm" value="Submit">
-            </form>
+            <input class="col-12 col-md-3 mb-2 mr-1" type="text" id="artist" placeholder="Insert Artist">
+            <input class="col-12 col-md-3 mb-2 mb-2 mr-1" type="text" id="album" placeholder="Insert Album">
+            <input class="col-12 col-md-2 mb-2 mb-2 mr-1" type="button" id="confirm" value="Submit">
         </div>
         <div id="slike"></div>
     </div>

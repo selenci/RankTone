@@ -3,7 +3,7 @@ function dodajEl(alb, images)
     let div = $("<div class='row mt-4 justify-content-center'>");
     if(images)
     {
-        let divS = $("<div class='col-md-2'>");
+        let divS = $("<div class='col-12 col-md-2 mb-1'>");
         divS.append($('<img/>').attr(
             {src: images.images[0].thumbnails['small']}
         ));
@@ -13,7 +13,7 @@ function dodajEl(alb, images)
     {
         div.append("<br>");
     }
-    let divB = $("<div class='col-md-2'>");
+    let divB = $("<div class='col-12 col-md-2'>");
     divB.append($('<input>').attr(
         {   type: 'button',
             class: 'btn btn-primary btn-sm',
