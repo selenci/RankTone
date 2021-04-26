@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -12,32 +15,6 @@
     <input type="text" id="album" placeholder="Insert Album">
     <input type="button" id="confirm" value="submit">
     <div id="slike"></div>
-    <script>
-        $("#confirm").click(() => {
-        $("#slike").empty();
-        let obj = {
-            query: `release:${$("#album").val()} AND artist:${$("#artist").val()}`,
-            limit: 5,
-            fmt: "json"
-        }
-        let urlLink = "http://musicbrainz.org/ws/2/release/?" + $.param( obj );
-        console.log(urlLink);
-        $.get(urlLink, (data) => {
-            for(let alb of data.releases)
-            {
-                $.get("http://coverartarchive.org/release/" + alb.id, (images, err) => {
-                    if(images.status!=404)
-                    {
-                        console.log(images);
-                        let potSlike = `<div><img src=${images.images[0].thumbnails['small']}></div>`;
-                        console.log(potSlike);
-                        $("#slike").prepend(potSlike);
-                    }
-                });
-            }
-        })
-    })
-    
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
