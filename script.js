@@ -17,13 +17,13 @@ $("#confirm").click(() => {
         limit: 5,
         fmt: "json"
     }
-    let urlLink = "http://musicbrainz.org/ws/2/release/?" + $.param( obj );
+    let urlLink = "https://musicbrainz.org/ws/2/release/?" + $.param( obj );
     console.log(urlLink);
     $.get(urlLink, (data) => {
         for(let alb of data.releases)
         {
             console.log(alb);
-            $.get("http://coverartarchive.org/release/" + alb.id, (images, err) => {
+            $.get("https://coverartarchive.org/release/" + alb.id, (images, err) => {
                 if(images.status!=404)
                 {
                     let div = $("<div>");
