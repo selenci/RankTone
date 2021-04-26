@@ -75,6 +75,8 @@ async function quickSort(items, left, right) {
 }
 
 function izpis(){
+    $("#levi").remove();
+    $("#desni").remove();
     let i = 1;
     for(let song of pesmi)
     {

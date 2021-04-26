@@ -1,19 +1,22 @@
 function dodajEl(alb, images)
 {
-    let div = $("<div>");
+    let div = $("<div class='row mt-4 justify-content-center'>");
     if(images)
     {
-        div.append($('<img/>').attr(
+        let divS = $("<div class='col-md-2'>");
+        divS.append($('<img/>').attr(
             {src: images.images[0].thumbnails['small']}
         ));
+        div.append(divS);
     }
     else
     {
         div.append("<br>");
     }
-    console.log("TEST");
-    div.append($('<input>').attr(
+    let divB = $("<div class='col-md-2'>");
+    divB.append($('<input>').attr(
         {   type: 'button',
+            class: 'btn btn-primary btn-sm',
             value: alb.title + ", " + alb['artist-credit'][0].name + ", " + alb['track-count'] + " tracks"
         }).click(function(){
             window.location.href = "sorter.html?id=" + alb.id;
@@ -21,7 +24,8 @@ function dodajEl(alb, images)
         );
     // let potSlike = `<div><img src=${images.images[0].thumbnails['small']}></div>`;
     // console.log(potSlike);
-    $("#slike").append(div);
+    div.append(divB);
+    $("#slike").prepend(div);
 }
 
 $("#confirm").click(() => {
@@ -43,3 +47,15 @@ $("#confirm").click(() => {
         }
     })
 })
+
+function pressEnter(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+      // Cancel the default action, if needed
+      event.preventDefault();
+      // Trigger the button element with a click
+      document.getElementById("confirm").click();
+    }
+}
+
+$("#album").keyup(pressEnter);
