@@ -2,6 +2,7 @@ let levi = 0, desni = 1, curr;
 let pesmi = [];
 var queries = {};
 let val = 0;
+let cnt = 0;
 function swap(arr, i, j){
     let tmp = arr[i];
     arr[i] = arr[j];
@@ -19,13 +20,24 @@ $.get(`https://musicbrainz.org/ws/2/release/${queries.id}?inc=recordings&fmt=jso
         pesmi.push(song.title);
     }
     console.log(pesmi);
-    quickSort(pesmi, 0, pesmi.length - 1);
+
+    zacniSort();
 })
+
+async function zacniSort(){
+    await quickSort(pesmi, 0, pesmi.length - 1);
+    izpis();
+}
 
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
-async function paPridobimoToSpremenljivko(){
+async function paPridobimoToSpremenljivko(a, b){
+    if(a == b)
+        return 0;
+    ++cnt;
+    $("#levi").text(a);
+    $("#desni").text(b);
     while(!val)
         await sleep(100);
     let v = val;
@@ -34,55 +46,40 @@ async function paPridobimoToSpremenljivko(){
 }
 
 async function partition(items, left, right) {
-    var pivot   = items[Math.floor((right + left) / 2)], //middle element
-        i       = left, //left pointer
-        j       = right; //right pointer
-    while (i <= j) {
-        $("#levi").text(pesmi[i]);
-        $("#desni").text(pivot);
-        let value = await paPridobimoToSpremenljivko();
-        while (value > 0) {
-            i++;
-            $("#levi").text(pesmi[i]);
-            $("#desni").text(pivot);
-            value = await paPridobimoToSpremenljivko();
-        }
-        $("#levi").text(pivot);
-        $("#desni").text(pesmi[j]);
-        value = await paPridobimoToSpremenljivko();
-        while (value > 0) {
-            j--;
-            $("#levi").text(pivot);
-            $("#desni").text(pesmi[j]);
-            value = await paPridobimoToSpremenljivko();
-        }
-        if (i <= j) {
-            swap(items, i, j); //sawpping two elements
-            i++;
-            j--;
+    let pivot = items[right];
+    let i = left - 1;
+    for(let j = left; j <= right; ++j)
+    {
+        let value = await paPridobimoToSpremenljivko(pesmi[j], pivot);
+        if(value < 0)
+        {
+            ++i;
+            swap(pesmi, i, j);
         }
         console.log(pesmi);
     }
-    return i;
+    swap(pesmi, i+1, right);
+    return i+1;
 }
 
-function quickSort(items, left, right) {
+async function quickSort(items, left, right) {
     var index;
-    if (items.length > 1) {
-        index = partition(items, left, right); //index returned from partition
-        if (left < index - 1) { //more elements on the left side of the pivot
-            quickSort(items, left, index - 1);
-        }
-        if (index < right) { //more elements on the right side of the pivot
-            quickSort(items, index, right);
-        }
+    console.log("jaz ga sortam");
+    if (left < right) {
+        index = await partition(items, left, right); //index returned from partition
+        console.log(index);
+        await quickSort(items, left, index - 1);
+        await quickSort(items, index + 1, right);
     }
-    izpis();
+    return items;
 }
 
 function izpis(){
+    let i = 1;
     for(let song of pesmi)
     {
-        $("#pesmi").append(`${song}<br>`);
+        $("#pesmi").append(`${i}. ${song}<br>`);
+        ++i;
     }
+    $("#pesmi").append(`Number of comparisons: ${cnt}`);
 }
