@@ -1,13 +1,4 @@
-function saveNameCookie(id)
-{
-    let date = new Date();
-    date.setTime(date.getTime() + (60 * 60 * 1000));
-    console.log(date);
-    let str = `albumID=${id}; expires=${date.toUTCString()}; path=/`;
-    document.cookie = `albumID=${id}; expires=${date.toUTCString()}; path=/`;
-    console.log(document.cookie);
-    console.log(str);
-}
+
 
 $("#confirm").click(() => {
     
@@ -34,7 +25,7 @@ $("#confirm").click(() => {
                         {   type: 'button',
                             value: alb.title + ", " + alb['artist-credit'][0].name + ", " + alb['track-count'] + " tracks"
                         }).click(function(){
-                            saveNameCookie(alb.id);
+                            window.location.href = "sorter.html?id=" + alb.id;
                         })
                         );
                     // let potSlike = `<div><img src=${images.images[0].thumbnails['small']}></div>`;
