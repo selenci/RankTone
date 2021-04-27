@@ -26,29 +26,36 @@ function dodajEl(alb, images)
     // console.log(potSlike);
     div.append(divB);
     $("#slike").prepend(div);
+    $("#loadingTxt").remove();
 }
 
 $("#confirm").click(() => {
     let q = "";
+    let stAlb = 8;
     if($("#album").val()){
         q = `release:${$("#album").val()}`;
     }
     if($("#artist").val())
     {
-        if(q)
+        if(q){
             q += " AND ";
+            stAlb = 2;
+        }
         q += `artist:${$("#artist").val()}`;
     }
 
     $("#slike").empty();
+    $("#slike").append("<div id='loadingTxt' class='row justify-content-center'><p>Loading...</p></div>");
     let obj = {
         query: q,
-        limit: 5,
+        limit: stAlb,
         fmt: "json"
     }
     let urlLink = "https://musicbrainz.org/ws/2/release/?" + $.param( obj );
     console.log(urlLink);
     $.get(urlLink, (data) => {
+        if(data.count == 0)
+            $("#loadingTxt").text("No results");
         for(let alb of data.releases)
         {
             $.get("https://coverartarchive.org/release/" + alb.id, (images, err) => {
