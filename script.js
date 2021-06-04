@@ -4,9 +4,10 @@ function dodajEl(alb, images)
     if(images)
     {
         let divS = $("<div class='col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-1'>");
-        divS.append($('<img/>').attr(
-            {src: images.images[0].thumbnails['small']}
-        ));
+        let loading = $('<div>').addClass('loader');
+        let image = $('<img/>', {src: images.images[0].thumbnails['small']});
+        image.on('load', () => {loading.hide();});
+        divS.append(image).append(loading);
         div.append(divS);
     }
     else
@@ -22,8 +23,7 @@ function dodajEl(alb, images)
             window.location.href = "sorter.html?id=" + alb.id;
         })
         );
-    // let potSlike = `<div><img src=${images.images[0].thumbnails['small']}></div>`;
-    // console.log(potSlike);
+
     div.append(divB);
     $("#slike").prepend(div);
     $("#loadingTxt").remove();
@@ -52,7 +52,6 @@ $("#confirm").click(() => {
         fmt: "json"
     }
     let urlLink = "https://musicbrainz.org/ws/2/release/?" + $.param( obj );
-    console.log(urlLink);
     $.get(urlLink, (data) => {
         if(data.count == 0)
             $("#loadingTxt").text("No results");
