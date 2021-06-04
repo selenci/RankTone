@@ -19,8 +19,6 @@ $.get(`https://musicbrainz.org/ws/2/release/${queries.id}?inc=recordings&fmt=jso
     {
         pesmi.push(song.title);
     }
-    console.log(pesmi);
-
     zacniSort();
 })
 
@@ -56,7 +54,6 @@ async function partition(items, left, right) {
             ++i;
             swap(pesmi, i, j);
         }
-        console.log(pesmi);
     }
     swap(pesmi, i+1, right);
     return i+1;
@@ -64,10 +61,8 @@ async function partition(items, left, right) {
 
 async function quickSort(items, left, right) {
     var index;
-    console.log("jaz ga sortam");
     if (left < right) {
         index = await partition(items, left, right); //index returned from partition
-        console.log(index);
         await quickSort(items, left, index - 1);
         await quickSort(items, index + 1, right);
     }
