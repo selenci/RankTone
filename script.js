@@ -6,7 +6,7 @@ function dodajEl(alb, images)
         let divS = $("<div class='col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-1'>");
         let loading = $('<div>').addClass('loader');
         let image = $('<img/>', {src: images.images[0].thumbnails['small']});
-        image.on('load', () => {loading.hide();});
+        image.on('load', () => {loading.remove();});
         divS.append(image).append(loading);
         div.append(divS);
     }
@@ -39,7 +39,7 @@ $("#confirm").click(() => {
     {
         if(q){
             q += " AND ";
-            stAlb = 2;
+            stAlb = 5;
         }
         q += `artist:${$("#artist").val()}`;
     }
