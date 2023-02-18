@@ -24,8 +24,18 @@
             width:80%;
         }
 
-        #pesmi{
+        .pesmiCont{
             font-size: 20px;
+            display: table;
+            margin: auto;
+        }
+
+        #kopiraj{
+            margin: auto;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            height: 70px;
+            display: none;
         }
     </style>
 </head>
@@ -39,7 +49,14 @@
         <div class="row mt-4 justify-content-center" id="contents">
             <button class="btn btn-primary btn-lg col-12 col-md-2 mb-4" id="levi" onclick='val = -1'></button>
             <button class="btn btn-primary btn-lg col-12 col-md-2 offset-md-1" id="desni" onclick='val = 1'></button>
-            <div id="pesmi"></div>
+            <div class="col-12">
+            <div class="pesmiCont">
+                <div id="pesmi"></div><div id="compr"></div>
+            </div>
+            </div>
+            <div class="col-12">
+            <button class="btn btn-primary btn-lg col-12 col-md-2" id="kopiraj">Copy</button>
+            </div>
             <script src="sort.js"></script>
         </div>
     </div>

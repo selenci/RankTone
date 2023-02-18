@@ -14,6 +14,7 @@ $.each(document.location.search.substr(1).split('&'), function (c, q) {
     queries[i[0].toString()] = i[1].toString();
 });
 
+
 $.get(`https://musicbrainz.org/ws/2/release/${queries.id}?inc=recordings&fmt=json`,(album) => {
 
     for(let i = 0; i < album.media.length; ++i){
@@ -83,5 +84,12 @@ function izpis(){
         $("#pesmi").append(`<b>${i}.</b> ${song}<br>`);
         ++i;
     }
-    $("#pesmi").append(`Number of comparisons: ${cnt}`);
+    $("#compr").append(`Number of comparisons: ${cnt}`);
+    $("#kopiraj").css("display", "table");
 }
+
+$("#kopiraj").click(function(){
+    let copyText = document.getElementById("pesmi");
+    navigator.clipboard.writeText(copyText.innerText);
+
+})
