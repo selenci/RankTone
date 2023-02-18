@@ -15,9 +15,14 @@ $.each(document.location.search.substr(1).split('&'), function (c, q) {
 });
 
 $.get(`https://musicbrainz.org/ws/2/release/${queries.id}?inc=recordings&fmt=json`,(album) => {
-    for(let song of album.media[0].tracks)
-    {
-        pesmi.push(song.title);
+
+    for(let i = 0; i < album.media.length; ++i){
+
+        for(let song of album.media[i].tracks)
+        {
+            pesmi.push(song.title);
+        }
+        
     }
     zacniSort();
 })
