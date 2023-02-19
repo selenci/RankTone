@@ -3,6 +3,7 @@ let pesmi = [];
 var queries = {};
 let val = 0;
 let cnt = 0;
+let albumName = null;
 function swap(arr, i, j){
     let tmp = arr[i];
     arr[i] = arr[j];
@@ -25,6 +26,9 @@ $.get(`https://musicbrainz.org/ws/2/release/${queries.id}?inc=recordings&fmt=jso
         }
         
     }
+
+    if(album.title)
+        albumName = album.title
     zacniSort();
 })
 
@@ -89,7 +93,12 @@ function izpis(){
 }
 
 $("#kopiraj").click(function(){
-    let copyText = document.getElementById("pesmi");
-    navigator.clipboard.writeText(copyText.innerText);
+    let copyText = document.getElementById("pesmi").innerText;
+
+    console.log(albumName)
+    if(albumName)
+        copyText = "My ranking of " + albumName + ":\n" + copyText;
+    console.log(albumName)
+    navigator.clipboard.writeText(copyText);
 
 })
